@@ -1,0 +1,39 @@
+import { FaChevronUp, FaChevronDown } from 'react-icons/fa';
+import { useAppContext } from './context/useAppContext';
+
+type CartItemProps = {
+	id: string;
+	title: string;
+	price: string;
+	img: string;
+	amount: number;
+};
+const CartItem = ({ id, img, title, price, amount }: CartItemProps) => {
+	return (
+		<article className="cart-item">
+			<img src={img} alt={title} />
+			<div>
+				<h5>{title}</h5>
+				<span className="item-price">${price}</span>
+				{/* remove button */}
+				<button className="remove-btn" onClick={() => console.log('removed')}>
+					remove
+				</button>
+			</div>
+			<div>
+				{/* increase amount */}
+				<button className="amount-btn" onClick={() => console.log('increase')}>
+					<FaChevronUp className="amount-icon" />
+				</button>
+				{/* amount */}
+				<span className="amount">{amount}</span>
+				{/* decrease amount */}
+				<button className="amount-btn" onClick={() => console.log('decrease')}>
+					<FaChevronDown className="amount-icon" />
+				</button>
+			</div>
+		</article>
+	);
+};
+
+export default CartItem;
