@@ -9,6 +9,7 @@ type CartItemProps = {
 	amount: number;
 };
 const CartItem = ({ id, img, title, price, amount }: CartItemProps) => {
+	const { remove, increase, decrease } = useAppContext();
 	return (
 		<article className="cart-item">
 			<img src={img} alt={title} />
@@ -16,19 +17,19 @@ const CartItem = ({ id, img, title, price, amount }: CartItemProps) => {
 				<h5>{title}</h5>
 				<span className="item-price">${price}</span>
 				{/* remove button */}
-				<button className="remove-btn" onClick={() => console.log('removed')}>
+				<button className="remove-btn" onClick={() => remove(id)}>
 					remove
 				</button>
 			</div>
 			<div>
 				{/* increase amount */}
-				<button className="amount-btn" onClick={() => console.log('increase')}>
+				<button className="amount-btn" onClick={() => increase(id)}>
 					<FaChevronUp className="amount-icon" />
 				</button>
 				{/* amount */}
 				<span className="amount">{amount}</span>
 				{/* decrease amount */}
-				<button className="amount-btn" onClick={() => console.log('decrease')}>
+				<button className="amount-btn" onClick={() => decrease(id)}>
 					<FaChevronDown className="amount-icon" />
 				</button>
 			</div>

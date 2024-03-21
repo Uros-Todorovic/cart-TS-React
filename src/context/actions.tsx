@@ -1,25 +1,77 @@
-export type CLEAR_CART = {
+/**
+ *  CLEAR_CART Action and Dispatch Constant
+ *
+ */
+
+export type CLEAR_CART_ACTION = {
 	type: 'CLEAR_CART';
 };
 
-export type REMOVE = {
+export const CLEAR_CART: CLEAR_CART_ACTION = {
+	type: 'CLEAR_CART',
+};
+
+/**
+ *  REMOVE Action and Dispatch Constant
+ *
+ */
+
+export type REMOVE_ACTION = {
 	type: 'REMOVE';
+	payload: { id: string };
 };
 
-export type INCREASE = {
+export const REMOVE: REMOVE_ACTION = {
+	type: 'REMOVE',
+	payload: { id: '' },
+};
+
+/**
+ *  INCREASE Action  and Dispatch Constant
+ *
+ */
+
+export type INCREASE_ACTION = {
 	type: 'INCREASE';
+	payload: { id: string };
 };
 
-export type DECREASE = {
-	type: 'DECREASE';
+export const INCREASE: INCREASE_ACTION = {
+	type: 'INCREASE',
+	payload: { id: '' },
 };
+
+/**
+ *  DECREASE Action  and Dispatch Constant
+ *
+ */
+
+export type DECREASE_ACTION = {
+	type: 'DECREASE';
+	payload: { id: string };
+};
+
+export const DECREASE: DECREASE_ACTION = {
+	type: 'DECREASE',
+	payload: { id: '' },
+};
+
+/**
+ *  LOADING Action  and Dispatch Constant
+ *
+ */
 
 export type LOADING = {
 	type: 'LOADING';
 };
 
+/**
+ *  DISPLAY_ITEMS Action  and Dispatch Constant
+ *
+ */
+
 export type DISPLAY_ITEMS = {
 	type: 'DISPLAY_ITEMS';
 };
 
-export type Actions = CLEAR_CART | REMOVE | INCREASE | DECREASE | LOADING | DISPLAY_ITEMS;
+export type Actions = CLEAR_CART_ACTION | REMOVE_ACTION | INCREASE_ACTION | DECREASE_ACTION | LOADING | DISPLAY_ITEMS;
