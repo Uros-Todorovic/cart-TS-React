@@ -3,6 +3,8 @@
  *
  */
 
+import { CartItemType } from '../data';
+
 export type CLEAR_CART_ACTION = {
 	type: 'CLEAR_CART';
 };
@@ -61,8 +63,12 @@ export const DECREASE: DECREASE_ACTION = {
  *
  */
 
-export type LOADING = {
+export type LOADING_ACTION = {
 	type: 'LOADING';
+};
+
+export const LOADING: LOADING_ACTION = {
+	type: 'LOADING',
 };
 
 /**
@@ -70,8 +76,21 @@ export type LOADING = {
  *
  */
 
-export type DISPLAY_ITEMS = {
+export type DISPLAY_ITEMS_ACTION = {
 	type: 'DISPLAY_ITEMS';
+	payload: {
+		cart: CartItemType[];
+	};
 };
 
-export type Actions = CLEAR_CART_ACTION | REMOVE_ACTION | INCREASE_ACTION | DECREASE_ACTION | LOADING | DISPLAY_ITEMS;
+export const DISPLAY_ITEMS = {
+	type: 'DISPLAY_ITEMS',
+};
+
+export type Actions =
+	| CLEAR_CART_ACTION
+	| REMOVE_ACTION
+	| INCREASE_ACTION
+	| DECREASE_ACTION
+	| LOADING_ACTION
+	| DISPLAY_ITEMS_ACTION;

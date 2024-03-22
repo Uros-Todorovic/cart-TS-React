@@ -1,7 +1,9 @@
-import { createContext, useReducer, useEffect, ReactNode, useState } from 'react';
+import { createContext, useReducer, useEffect, ReactNode } from 'react';
 import { reducer } from './reducer';
-import { CLEAR_CART, REMOVE, INCREASE, DECREASE } from './actions.tsx';
+import { CLEAR_CART, REMOVE, INCREASE, DECREASE, LOADING } from './actions.tsx';
 import cartItems, { CartItemType } from '../data.tsx';
+import { getTotals } from '../utils.tsx';
+const url = 'https://course-api.com/react-useReducer-cart-project';
 
 /**
  *
@@ -12,6 +14,8 @@ import cartItems, { CartItemType } from '../data.tsx';
 export type AppState = {
 	loading: boolean;
 	cart: Map<string, CartItemType>;
+	totalAmount: number;
+	totalCost: number;
 };
 
 export type AppContextValue = AppState & {
@@ -32,6 +36,8 @@ export const AppContext = createContext<AppContextValue | null>(null);
 const initialState: AppState = {
 	loading: false,
 	cart: new Map(cartItems.map((item) => [item.id, item])),
+	totalAmount: 0,
+	totalCost: 0,
 };
 
 /**
@@ -46,6 +52,8 @@ type AppProviderProps = {
 
 export const AppProvider = ({ children }: AppProviderProps) => {
 	const [state, dispatch] = useReducer(reducer, initialState);
+
+	const { totalAmount, totalCost } = getTotals(state.cart);
 
 	const clearCart = () => {
 		const { type } = CLEAR_CART;
@@ -67,6 +75,19 @@ export const AppProvider = ({ children }: AppProviderProps) => {
 		dispatch({ type, payload: { id } });
 	};
 
+	const fetchData = async () => {
+		const { type } = LOADING;
+		dispatch({ type: type });
+		const response = await fetch(url);
+		const cart: CartItemType[] = await response.json();
+
+		dispatch({ type: 'DISPLAY_ITEMS', payload: { cart } });
+	};
+
+	useEffect(() => {
+		fetchData();
+	}, []);
+
 	const ctxObj: AppContextValue = {
 		loading: state.loading,
 		cart: state.cart,
@@ -74,6 +95,8 @@ export const AppProvider = ({ children }: AppProviderProps) => {
 		remove,
 		increase,
 		decrease,
+		totalAmount,
+		totalCost,
 	};
 
 	return <AppContext.Provider value={ctxObj}>{children}</AppContext.Provider>;
